@@ -1,0 +1,65 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function userProfile() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid));
+    }
+    function role() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+    function validUser() {
+      return userProfile() && role() in ['Admin', 'Penyelia', 'Operator'];
+    }
+    function manager() { return validUser() && role() in ['Admin', 'Penyelia']; }
+    function admin() { return validUser() && role() == 'Admin'; }
+
+    // Profil pengguna hanya boleh dibaca oleh pemilik akaun.
+    // Pentadbir sistem mengurus profil/peranan melalui Firebase Console.
+    match /users/{userId} {
+      allow read: if signedIn() && request.auth.uid == userId;
+      allow create, update, delete: if false;
+    }
+
+    // Kolam: hanya Admin boleh menambah atau mengubah maklumat.
+    match /ponds/{pondId} {
+      allow read: if validUser();
+      allow create, update, delete: if admin();
+    }
+
+    // Inventori: Admin dan Penyelia boleh mengurus stok.
+    match /inventory/{itemId} {
+      allow read: if validUser();
+      allow create, update, delete: if manager();
+    }
+
+    // Operator hanya boleh menghantar rekod sendiri dalam status Menunggu.
+    // Kelulusan/penolakan hanya oleh Admin atau Penyelia.
+    match /operations/{operationId} {
+      allow read: if validUser();
+      allow create: if validUser()
+        && request.resource.data.createdBy == request.auth.uid
+        && request.resource.data.id == operationId
+        && (role() != 'Operator' || request.resource.data.status == 'Menunggu');
+      allow update: if manager()
+        && request.resource.data.id == resource.data.id
+        && request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['status', 'approvedBy', 'approvedAt', 'rejectedBy', 'rejectedAt'])
+        && request.resource.data.status in ['Diluluskan', 'Ditolak']
+        && ((request.resource.data.status == 'Diluluskan'
+          && request.resource.data.approvedBy == request.auth.uid
+          && request.resource.data.approvedAt is string)
+          || (request.resource.data.status == 'Ditolak'
+          && request.resource.data.rejectedBy == request.auth.uid
+          && request.resource.data.rejectedAt is string));
+      allow delete: if admin();
+    }
+
+    // Dokumen legacy hanya untuk bacaan migrasi oleh pengguna sah; tiada penulisan baharu.
+    match /appData/{documentId} {
+      allow read: if validUser() && documentId == 'main';
+      allow write: if false;
+    }
+  }
+}

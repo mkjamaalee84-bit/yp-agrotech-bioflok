@@ -1,0 +1,21 @@
+{
+  "name": "yp-agrotech-bioflok-bos",
+  "private": true,
+  "version": "1.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "firebase": "^12.6.0",
+    "html2pdf.js": "^0.10.3"
+  },
+  "devDependencies": {
+    "vite": "^7.2.2"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  }
+}

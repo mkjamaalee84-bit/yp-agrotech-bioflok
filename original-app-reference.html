@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#102a27">
+<title>YP AGROTECH | BIOFLOK BOS</title>
+<!-- html2pdf library for direct mobile PDF generation and download -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+:root{--bg:#f3f6f4;--panel:#fff;--ink:#172b28;--muted:#71817c;--line:#e5ece8;--green:#16785d;--green2:#e8f5ef;--lime:#c6e86b;--orange:#c77827;--red:#c64c4c;--shadow:0 8px 28px #193b2d0b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;-webkit-tap-highlight-color:transparent}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}.app{min-height:100vh}
+.sidebar{position:fixed;inset:0 auto 0 0;width:248px;background:#102a27;color:#eaf3ee;padding:25px 17px;display:flex;flex-direction:column;z-index:15}
+.brand{display:flex;gap:11px;align-items:center;padding:0 9px 27px}.brandmark{width:39px;height:39px;border-radius:12px;background:var(--lime);color:#17382d;display:grid;place-items:center;font-size:21px}.brand strong{display:block;font-size:14px;letter-spacing:.7px}.brand small{color:#a9c0b6;font-size:10px;letter-spacing:1.5px}
+.navlabel{color:#77948a;font-size:10px;font-weight:800;letter-spacing:1.5px;padding:12px 12px 7px}.nav{display:grid;gap:5px}
+.nav button{background:transparent;color:#b9ccc4;text-align:left;padding:11px 13px;border-radius:10px;display:flex;align-items:center;gap:12px;font-weight:600;min-height:44px}
+.nav button:hover,.nav button.active{background:#21463d;color:#fff}.nav .ico{width:19px;text-align:center;font-size:17px}
+.sidefoot{margin-top:auto;border-top:1px solid #315047;padding:17px 8px 0;color:#9bb3a9;font-size:11px}
+.main{margin-left:248px;padding:27px 32px 45px;max-width:1700px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:25px}
+.eyebrow{color:var(--green);font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase}
+.topbar h1{font-size:25px;line-height:1.2;margin:4px 0 0;letter-spacing:-.7px}
+.topright{display:flex;align-items:center;gap:12px}
+.datepill,.userpill{background:#fff;border:1px solid var(--line);padding:9px 12px;border-radius:12px;font-size:12px}
+.userpill{display:flex;align-items:center;gap:9px}
+.avatar{width:29px;height:29px;border-radius:9px;background:var(--green2);color:var(--green);display:grid;place-items:center;font-weight:800}
+.page{display:none}.page.active{display:block}
+.welcome{background:linear-gradient(110deg,#123b32,#1b6650);border-radius:18px;padding:24px 27px;color:white;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:20px;overflow:hidden;position:relative}
+.welcome:after{content:"";position:absolute;width:230px;height:230px;border:1px solid #ffffff20;border-radius:50%;right:8%;top:-125px;box-shadow:0 0 0 28px #ffffff08,0 0 0 58px #ffffff06}
+.welcome h2{margin:4px 0;font-size:21px}.welcome p{margin:4px 0 0;color:#c1d9cf;font-size:12px}.welcome .tag{font-size:10px;letter-spacing:1.5px;color:#d6ed9d;font-weight:800}.welcome .bigicon{font-size:53px;opacity:.9;z-index:1}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}
+.stat,.panel{background:var(--panel);border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow)}
+.stat{padding:17px 18px}.stathead{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:11px;font-weight:700}
+.staticon{width:32px;height:32px;border-radius:10px;background:var(--green2);display:grid;place-items:center;font-size:16px}
+.stat strong{display:block;font-size:27px;letter-spacing:-1px;margin:8px 0 1px}.stat small{color:var(--muted);font-size:11px}
+.grid2{display:grid;grid-template-columns:1.35fr 1fr;gap:16px;margin-bottom:18px}
+.panel{padding:19px}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}
+.panelhead h3{margin:0;font-size:14px}.panelhead p{margin:3px 0 0;color:var(--muted);font-size:11px}
+.linkbtn{background:transparent;color:var(--green);font-weight:800;font-size:11px;min-height:36px;padding:4px 8px}
+.pondgrid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+.pond{border:1px solid var(--line);border-radius:10px;padding:9px 5px;text-align:center;background:#fbfdfc;cursor:pointer;min-width:0}
+.pond:hover{border-color:var(--green);transform:translateY(-1px)}.pond b{display:block;font-size:12px}.pond small{display:block;color:var(--muted);font-size:9px;margin-top:3px}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:4px;background:#35a878}
+.dot.warn{background:#df9b42}.dot.danger{background:#cf5b5b}
+.pond.quarantine{background:#fff9ef;border-color:#f1dfc2}.pond.quarantine small{color:#ad762e}
+.activity{display:grid;gap:13px}
+.activityitem{display:flex;gap:10px;align-items:flex-start}
+.activityicon{width:31px;height:31px;flex:none;border-radius:10px;background:#eff6f2;display:grid;place-items:center}
+.activityitem b{font-size:11px;display:block}.activityitem small{color:var(--muted);font-size:10px}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:3px 0 16px}
+.toolbarleft,.toolbarright{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.btn{border-radius:10px;padding:11px 16px;font-size:12px;font-weight:800;background:#edf3f0;color:#36564b;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn.primary{background:var(--green);color:#fff}.btn.dark{background:#183c32;color:white}.btn.outline{background:#fff;border:1px solid var(--line)}.btn.danger{background:#fff0ef;color:var(--red)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.field{border:1px solid #dfe8e3;background:#fff;border-radius:10px;padding:11px 13px;color:var(--ink);min-width:0;outline:none;min-height:44px}
+.field:focus{border-color:#4b9b7d;box-shadow:0 0 0 3px #16785d13}.search{min-width:190px}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:12px;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;min-width:690px;background:#fff}
+th{text-align:left;background:#f7faf8;color:#71817c;font-size:10px;letter-spacing:.6px;text-transform:uppercase;padding:12px 13px}
+td{padding:12px 13px;border-top:1px solid #edf1ee;font-size:11px}
+tbody tr:hover{background:#fbfdfc}
+.badge{display:inline-flex;align-items:center;border-radius:20px;padding:4px 9px;font-size:10px;font-weight:800;background:#e9f5ef;color:#237653}
+.badge.warn{background:#fff3df;color:#a86b1d}.badge.red{background:#ffeded;color:#b44949}.badge.gray{background:#eef1ef;color:#67756f}
+.muted{color:var(--muted)}.empty{text-align:center;padding:35px;color:var(--muted)}
+.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.formgroup{display:grid;gap:5px}.formgroup label{font-size:10px;color:#64766e;font-weight:800}
+.formgroup.full{grid-column:1/-1}.formgroup textarea{min-height:85px;resize:vertical}
+.modalback{position:fixed;inset:0;background:#102a2780;display:none;align-items:center;justify-content:center;padding:16px;z-index:30}
+.modalback.show{display:flex}
+.modal{background:#fff;border-radius:18px;width:min(560px,100%);max-height:92vh;overflow:auto;padding:22px;box-shadow:0 25px 80px #0003;-webkit-overflow-scrolling:touch}
+.modalhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.modalhead h3{margin:0;font-size:17px}
+.close{background:#f0f4f1;border-radius:10px;width:36px;height:36px;font-size:18px;display:grid;place-items:center}
+.modalactions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+.toast{position:fixed;right:20px;bottom:20px;background:#173d32;color:white;padding:12px 18px;border-radius:12px;box-shadow:var(--shadow);z-index:50;display:none;font-size:12px}
+.toast.show{display:block;animation:fade .2s}@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.login{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 20% 15%,#dcefe4,transparent 32%),#f2f6f3}
+.loginbox{width:min(420px,100%);background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px;box-shadow:0 18px 60px #1b45301a}
+.loginbrand{display:flex;align-items:center;gap:11px;margin-bottom:23px}.loginbrand .brandmark{background:#173d32;color:#d7ee9e}
+.loginbox h1{font-size:22px;margin:0}.loginbox p{color:var(--muted);font-size:12px;margin:5px 0 22px}
+.loginbox .formgroup{margin-bottom:13px}.loginbox .btn{width:100%;padding:13px}
+.loginhint{background:#f4f8f5;border-radius:10px;padding:11px;margin-top:15px;font-size:10px;color:#64766e;line-height:1.7}.loginhint b{color:#29483d}
+.hidden{display:none!important}.sectionnote{font-size:11px;color:var(--muted);margin:0 0 13px}
+.approvalcard{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:9px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.approvalcard b{font-size:12px}.approvalcard small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+.approvalactions{display:flex;gap:6px;flex-wrap:wrap}
+
+/* Mobile responsive styling overrides */
+@media(max-width:1100px){.sidebar{width:215px}.main{margin-left:215px;padding:22px}.stats{grid-template-columns:repeat(2,1fr)}.pondgrid{grid-template-columns:repeat(5,1fr)}}
+@media(max-width:760px){
+  .sidebar{width:100%;height:68px;inset:auto 0 0;padding:6px 10px;display:block;box-shadow:0 -4px 20px rgba(0,0,0,0.15)}
+  .brand,.navlabel,.sidefoot{display:none}
+  .nav{display:flex;justify-content:space-around;gap:2px}
+  .nav button{flex:1;justify-content:center;flex-direction:column;gap:2px;padding:6px 2px;font-size:9px;height:auto;min-height:auto;color:#a9c0b6}
+  .nav button.active{color:#fff;background:#183c32}
+  .nav .ico{font-size:16px}
+  .main{margin:0;padding:14px 12px 90px}
+  .topbar{align-items:flex-start;margin-bottom:15px;gap:8px}
+  .topbar h1{font-size:20px}
+  .datepill{display:none}
+  .userpill{padding:6px 10px;font-size:11px}
+  .avatar{width:26px;height:26px}
+  .welcome{padding:18px;border-radius:14px;flex-direction:column;align-items:flex-start;gap:10px}
+  .welcome h2{font-size:18px}
+  .welcome .bigicon{display:none}
+  .stats{gap:10px;grid-template-columns:repeat(2,1fr)}
+  .stat{padding:14px}
+  .stat strong{font-size:22px}
+  .grid2{grid-template-columns:1fr;gap:14px}
+  .pondgrid{grid-template-columns:repeat(4,1fr)}
+  .panel{padding:15px}
+  .formgrid{grid-template-columns:1fr}
+  .formgroup.full{grid-column:auto}
+  .toolbar{align-items:stretch;flex-direction:column}
+  .toolbarleft,.toolbarright{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .toolbarleft .search{grid-column:1/-1;min-width:100%}
+  .toolbarright .btn{width:100%}
+  .search{min-width:100%}
+  .approvalcard{align-items:flex-start;flex-direction:column}
+  .approvalactions{width:100%}
+  .approvalactions .btn{flex:1}
+  .modal{width:100%;max-height:95vh;padding:16px;border-radius:20px 20px 0 0;position:fixed;bottom:0;left:0;right:0}
+  .modalback{padding:0;align-items:flex-end}
+}
+@media(max-width:380px){.stats{grid-template-columns:1fr}.pondgrid{grid-template-columns:repeat(3,1fr)}}
+
+/* PDF Export hidden wrapper styling */
+#pdfReportContainer { display: none; }
+</style>
+</head>
+<body>
+<div id="loginView" class="login">
+  <div class="loginbox">
+    <div class="loginbrand"><div class="brandmark">🌱</div><div><strong>YP AGROTECH</strong><small style="display:block;color:#71817c;letter-spacing:1.5px;font-size:10px">BIOFLOK BOS</small></div></div>
+    <h1>Selamat kembali</h1><p>Log masuk ke Sistem Pengurusan Operasi Kolam.</p>
+    <form id="loginForm">
+      <div class="formgroup"><label>NAMA PENGGUNA</label><input class="field" id="loginName" placeholder="Contoh: admin" required value="admin"></div>
+      <div class="formgroup"><label>PERANAN</label><select class="field" id="loginRole"><option value="Admin">Admin</option><option value="Penyelia">Penyelia</option><option value="Operator">Operator</option></select></div>
+      <div class="formgroup"><label>KATA LALUAN</label><input class="field" id="loginPass" type="password" placeholder="Masukkan kata laluan" value="1234" required></div>
+      <button class="btn primary" type="submit">Log Masuk →</button>
+    </form>
+    <div class="loginhint"><b>Akses demo:</b> Pilih peranan Admin, Penyelia atau Operator. Kata laluan demo: <b>1234</b>. Data disimpan selamat pada telefon/pelayar anda.</div>
+  </div>
+</div>
+
+<div id="app" class="app hidden">
+<aside class="sidebar">
+  <div class="brand"><div class="brandmark">🌱</div><div><strong>YP AGROTECH</strong><small>BIOFLOK BOS</small></div></div>
+  <div class="navlabel">MENU UTAMA</div>
+  <nav class="nav">
+    <button class="active" data-page="dashboard"><span class="ico">▦</span>Dashboard</button>
+    <button data-page="ponds"><span class="ico">◉</span>Kolam</button>
+    <button data-page="operations"><span class="ico">📋</span>Operasi</button>
+    <button data-page="inventory"><span class="ico">📦</span>Inventori</button>
+    <button data-page="approvals"><span class="ico">✓</span>Kelulusan</button>
+    <button data-page="reports"><span class="ico">📈</span>Laporan & PDF</button>
+  </nav>
+  <div class="sidefoot">YP AGROTECH · MOBILE PDF<br>Versi 2.0 · Siap Telefon</div>
+</aside>
+<main class="main">
+  <header class="topbar"><div><div class="eyebrow">SISTEM PENGURUSAN OPERASI AKUAKULTUR</div><h1 id="pageTitle">Dashboard Operasi</h1></div><div class="topright"><div class="datepill" id="todayText"></div><div class="userpill"><div class="avatar" id="userAvatar">A</div><span><b id="userName">Admin</b><br><small class="muted" id="userRole">Admin</small></span><button class="linkbtn" id="logoutBtn" title="Log keluar">↪</button></div></div></header>
+
+  <section class="page active" id="page-dashboard">
+    <div class="welcome"><div><div class="tag">YP AGROTECH · BIOFLOK BOS</div><h2>Operasi ladang di hujung jari.</h2><p>Pantau prestasi kolam, rekod harian dan jana PDF terus dari telefon bimbit anda.</p></div><div class="bigicon">🐟</div></div>
+    <div class="stats">
+      <div class="stat"><div class="stathead">JUMLAH KOLAM <span class="staticon">◉</span></div><strong id="statPonds">35</strong><small>Termasuk 3 kolam kuarantin</small></div>
+      <div class="stat"><div class="stathead">KOLAM AKTIF <span class="staticon">💧</span></div><strong id="statActive">32</strong><small>Kolam operasi biasa</small></div>
+      <div class="stat"><div class="stathead">MENUNGGU <span class="staticon">⏳</span></div><strong id="statPending">0</strong><small>Rekod untuk semakan</small></div>
+      <div class="stat"><div class="stathead">INVENTORI <span class="staticon">📦</span></div><strong id="statStock">0</strong><small>Jumlah jenis item</small></div>
+    </div>
+    <div class="grid2">
+      <div class="panel"><div class="panelhead"><div><h3>Status Kolam</h3><p>Ringkasan 35 kolam mengikut bahagian</p></div><button class="linkbtn" data-goto="ponds">Lihat semua →</button></div><div class="pondgrid" id="dashboardPonds"></div></div>
+      <div class="panel"><div class="panelhead"><div><h3>Aktiviti Terkini</h3><p>Rekod operasi harian</p></div><button class="linkbtn" data-goto="operations">Semua →</button></div><div class="activity" id="recentActivity"></div></div>
+    </div>
+    <div class="panel"><div class="panelhead"><div><h3>Ringkasan Bahagian</h3><p>Taburan kolam mengikut bahagian A hingga G</p></div></div><div id="sectionSummary" class="stats" style="margin:0;grid-template-columns:repeat(7,minmax(0,1fr))"></div></div>
+  </section>
+
+  <section class="page" id="page-ponds">
+    <div class="toolbar"><div class="toolbarleft"><input id="pondSearch" class="field search" placeholder="Cari kolam..."><select id="pondFilter" class="field"><option value="">Semua status</option><option>Aktif</option><option>Penyelenggaraan</option><option>Kuarantin</option></select><select id="sectionFilter" class="field"><option value="">Semua bahagian</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select></div><div class="toolbarright"><button class="btn primary" id="addPondBtn">＋ Tambah</button></div></div>
+    <div class="panel"><div class="panelhead"><div><h3>Senarai Kolam</h3><p>35 kolam · Bahagian A hingga G</p></div><span class="badge" id="pondCount">35 kolam</span></div><div class="tablewrap"><table><thead><tr><th>Kolam</th><th>Bahagian</th><th>Status</th><th>Suhu (°C)</th><th>pH</th><th>DO (mg/L)</th><th>Tindakan</th></tr></thead><tbody id="pondTable"></tbody></table></div></div>
+  </section>
+
+  <section class="page" id="page-operations">
+    <div class="toolbar"><div class="toolbarleft"><input id="opSearch" class="field search" placeholder="Cari kolam / aktiviti..."><select id="opStatusFilter" class="field"><option value="">Semua status</option><option>Menunggu</option><option>Diluluskan</option><option>Ditolak</option></select></div><div class="toolbarright"><button class="btn primary" id="addOpBtn">＋ Rekod</button></div></div>
+    <div class="panel"><div class="panelhead"><div><h3>Rekod Operasi Harian</h3><p>Catat pemberian makanan, kualiti air dan mortaliti.</p></div><span class="badge" id="opCount">0 rekod</span></div><div class="tablewrap"><table><thead><tr><th>Tarikh / Masa</th><th>Kolam</th><th>Aktiviti</th><th>Butiran</th><th>Operator</th><th>Status</th><th>Tindakan</th></tr></thead><tbody id="opTable"></tbody></table></div></div>
+  </section>
+
+  <section class="page" id="page-inventory">
+    <div class="toolbar"><div class="toolbarleft"><input id="stockSearch" class="field search" placeholder="Cari item..."><select id="stockFilter" class="field"><option value="">Semua kategori</option><option>Makanan</option><option>Rawatan</option><option>Peralatan</option><option>Lain-lain</option></select></div><div class="toolbarright"><button class="btn primary" id="addStockBtn">＋ Item</button></div></div>
+    <div class="panel"><div class="panelhead"><div><h3>Inventori Ladang</h3><p>Pantau baki stok dan paras minimum.</p></div><span class="badge" id="stockCount">0 item</span></div><div class="tablewrap"><table><thead><tr><th>Nama Item</th><th>Kategori</th><th>Kuantiti</th><th>Unit</th><th>Minimum</th><th>Status</th><th>Tindakan</th></tr></thead><tbody id="stockTable"></tbody></table></div></div>
+  </section>
+
+  <section class="page" id="page-approvals">
+    <div class="panel"><div class="panelhead"><div><h3>Semakan & Kelulusan Penyelia</h3><p>Semak rekod operasi daripada operator.</p></div><span class="badge warn" id="approvalCount">0 menunggu</span></div><div id="approvalList"></div></div>
+  </section>
+
+  <section class="page" id="page-reports">
+    <div class="grid2">
+      <div class="panel">
+        <div class="panelhead"><div><h3>Muat Turun PDF (Telefon Pintar)</h3><p>Jana fail PDF laporan operasi ladang secara terus.</p></div><span>📄</span></div>
+        <p class="sectionnote">Tekan butang di bawah untuk menghasilkan fail PDF rasmi yang boleh disimpan atau dikongsi melalui WhatsApp / Email terus dari telefon anda.</p>
+        <div class="toolbarleft" style="flex-direction:column;align-items:stretch;">
+          <button class="btn primary" id="downloadPdfBtn" style="justify-content:center;font-size:13px;padding:13px;">📥 Muat Turun PDF Terus (Mobile)</button>
+          <button class="btn outline" id="printPdfBtn" style="justify-content:center;">🖨️ Cetak / Simpan PDF Sistem</button>
+          <button class="btn outline" id="csvBtn" style="justify-content:center;">⇩ Eksport Fail CSV</button>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panelhead"><div><h3>Sandaran Data (JSON)</h3><p>Fail sandaran untuk simpan atau pindahkan data.</p></div><span>💾</span></div>
+        <div class="toolbarleft" style="flex-direction:column;align-items:stretch;">
+          <button class="btn outline" id="jsonExportBtn" style="justify-content:center;">⇩ Eksport Data JSON</button>
+          <label class="btn outline" for="jsonImport" style="justify-content:center;cursor:pointer;">⇧ Import Data JSON</label>
+          <input id="jsonImport" type="file" accept=".json,application/json" class="hidden">
+        </div>
+        <p class="sectionnote" style="margin-top:12px">Import akan menggantikan data semasa pada pelayar ini.</p>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:16px"><div class="panelhead"><div><h3>Prestasi Operasi</h3><p>Ringkasan rekod mengikut status semasa.</p></div></div><div id="reportSummary"></div></div>
+  </section>
+</main>
+</div>
+
+<!-- Hidden PDF Printable Template Structure -->
+<div id="pdfReportContainer">
+  <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;padding:30px;color:#111;background:#fff;max-width:800px;margin:0 auto;">
+    <div style="border-bottom:3px solid #16785d;padding-bottom:15px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <h2 style="margin:0;color:#16785d;font-size:22px;">YP AGROTECH · BIOFLOK BOS</h2>
+        <p style="margin:4px 0 0;font-size:12px;color:#666;">Laporan Rasmi Operasi & Pengurusan Kolam Akuakultur</p>
+      </div>
+      <div style="text-align:right;font-size:11px;color:#666;">
+        <b id="pdfReportDate">Tarikh: -</b><br>
+        <span>Status: Rasmi Ladang</span>
+      </div>
+    </div>
+    <div style="margin-bottom:20px;">
+      <h3 style="font-size:14px;color:#16785d;border-bottom:1px solid #ddd;padding-bottom:5px;">1. Ringkasan Eksekutif Ladang</h3>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px;text-align:center;">
+        <div style="background:#f4f8f5;padding:10px;border-radius:6px;border:1px solid #dcefe4;"><small style="color:#666;font-size:10px;">Jumlah Kolam</small><b id="pdfStatPonds" style="display:block;font-size:18px;color:#16785d;">35</b></div>
+        <div style="background:#f4f8f5;padding:10px;border-radius:6px;border:1px solid #dcefe4;"><small style="color:#666;font-size:10px;">Kolam Aktif</small><b id="pdfStatActive" style="display:block;font-size:18px;color:#16785d;">32</b></div>
+        <div style="background:#f4f8f5;padding:10px;border-radius:6px;border:1px solid #dcefe4;"><small style="color:#666;font-size:10px;">Rekod Operasi</small><b id="pdfStatOps" style="display:block;font-size:18px;color:#16785d;">0</b></div>
+        <div style="background:#f4f8f5;padding:10px;border-radius:6px;border:1px solid #dcefe4;"><small style="color:#666;font-size:10px;">Item Inventori</small><b id="pdfStatStock" style="display:block;font-size:18px;color:#16785d;">0</b></div>
+      </div>
+    </div>
+    <div style="margin-bottom:20px;">
+      <h3 style="font-size:14px;color:#16785d;border-bottom:1px solid #ddd;padding-bottom:5px;">2. Senarai Rekod Operasi Terkini</h3>
+      <table style="width:100%;border-collapse:collapse;margin-top:10px;font-size:11px;">
+        <thead>
+          <tr style="background:#f0f4f1;color:#333;">
+            <th style="padding:8px;border:1px solid #ddd;text-align:left;">Tarikh/Masa</th>
+            <th style="padding:8px;border:1px solid #ddd;text-align:left;">Kolam</th>
+            <th style="padding:8px;border:1px solid #ddd;text-align:left;">Aktiviti</th>
+            <th style="padding:8px;border:1px solid #ddd;text-align:left;">Butiran</th>
+            <th style="padding:8px;border:1px solid #ddd;text-align:left;">Operator</th>
+            <th style="padding:8px;border:1px solid #ddd;text-align:left;">Status</th>
+          </tr>
+        </thead>
+        <tbody id="pdfOpTableBody">
+          <!-- Populated dynamically -->
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:30px;font-size:10px;color:#888;text-align:center;border-top:1px solid #eee;padding-top:10px;">
+      Dokumen ini dijana secara digital melalui Sistem YP Agrotech Bioflok Bos pada <span id="pdfFooterTime"></span>. Sah tanpa tandatangan fizikal.
+    </div>
+  </div>
+</div>
+
+<div class="modalback" id="modalBack"><div class="modal"><div class="modalhead"><h3 id="modalTitle">Borang</h3><button class="close" id="modalClose">×</button></div><form id="modalForm"><div id="modalBody"></div><div class="modalactions"><button type="button" class="btn outline" id="modalCancel">Batal</button><button type="submit" class="btn primary" id="modalSubmit">Simpan Rekod</button></div></form></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* YP AGROTECH BIOFLOK BOS — Aplikasi Tempatan dengan Sokongan Mobile PDF */
+const $=id=>document.getElementById(id);
+const today=()=>new Date().toISOString().slice(0,10);
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const initialPonds='ABCDEFG'.split('').flatMap(section=>[1,2,3,4,5].map(n=>({id:section+n,section,status:['A1','B1','C1'].includes(section+n)?'Kuarantin':'Aktif',temp:'',ph:'',do:''})));
+let data=loadData(),user=null,currentPage='dashboard',modalHandler=null;
+
+function loadData(){try{const d=JSON.parse(localStorage.getItem('ypBioflokData'));if(d&&Array.isArray(d.ponds)&&Array.isArray(d.operations)&&Array.isArray(d.inventory))return d}catch(e){}return{ponds:initialPonds,operations:[],inventory:[{id:uid(),name:'Pelet ikan',category:'Makanan',qty:50,unit:'kg',min:15},{id:uid(),name:'Garam bioflok',category:'Rawatan',qty:20,unit:'kg',min:5},{id:uid(),name:'Kit ujian air',category:'Peralatan',qty:3,unit:'unit',min:2}],updated:new Date().toISOString()}}
+function save(){data.updated=new Date().toISOString();localStorage.setItem('ypBioflokData',JSON.stringify(data));renderAll()}
+function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2600)}
+function badge(status){let c=status==='Diluluskan'?'':status==='Menunggu'?'warn':status==='Ditolak'?'red':status==='Kuarantin'?'warn':status==='Penyelenggaraan'?'gray':'';return `<span class="badge ${c}">${escapeHTML(status)}</span>`}
+
+function login(name,role){
+  user={name,role};
+  $('loginView').classList.add('hidden');
+  $('app').classList.remove('hidden');
+  $('userName').textContent=name;
+  $('userRole').textContent=role;
+  $('userAvatar').textContent=name.charAt(0).toUpperCase();
+  $('todayText').textContent=new Date().toLocaleDateString('ms-MY',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+  applyRole();
+  renderAll();
+}
+
+function applyRole(){
+  document.querySelector('[data-page="approvals"]').classList.toggle('hidden',user.role==='Operator');
+  $('addPondBtn').classList.toggle('hidden',user.role!=='Admin');
+  $('addStockBtn').classList.toggle('hidden',user.role==='Operator');
+}
+
+$('loginForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  if($('loginPass').value!=='1234'){toast('Kata laluan demo tidak tepat (Guna: 1234).');return}
+  login($('loginName').value.trim()||'Pengguna',$('loginRole').value);
+});
+
+$('logoutBtn').onclick=()=>{user=null;$('app').classList.add('hidden');$('loginView').classList.remove('hidden')};
+
+function go(page){
+  currentPage=page;
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+page));
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+  const titles={dashboard:'Dashboard Operasi',ponds:'Pengurusan Kolam',operations:'Rekod Operasi Harian',inventory:'Pengurusan Inventori',approvals:'Semakan & Kelulusan',reports:'Laporan & PDF'};
+  $('pageTitle').textContent=titles[page];
+  renderAll();
+}
+
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>go(b.dataset.page));
+document.querySelectorAll('[data-goto]').forEach(b=>b.onclick=()=>go(b.dataset.goto));
+
+function renderAll(){
+  if(!user)return;
+  renderDashboard();
+  renderPonds();
+  renderOperations();
+  renderInventory();
+  renderApprovals();
+  renderReports();
+}
+
+function renderDashboard(){
+  $('statPonds').textContent=data.ponds.length;
+  $('statActive').textContent=data.ponds.filter(p=>p.status==='Aktif').length;
+  $('statPending').textContent=data.operations.filter(o=>o.status==='Menunggu').length;
+  $('statStock').textContent=data.inventory.length;
+
+  $('dashboardPonds').innerHTML=data.ponds.map(p=>`<div class="pond ${p.status==='Kuarantin'?'quarantine':''}" onclick="go('ponds')"><b>${escapeHTML(p.id)}</b><small><i class="dot ${p.status==='Penyelenggaraan'?'warn':p.status==='Kuarantin'?'danger':''}"></i>${p.status==='Kuarantin'?'Kuarantin':p.status}</small></div>`).join('');
+  const recent=[...data.operations].sort((a,b)=>(b.created||'').localeCompare(a.created||'')).slice(0,5);
+  $('recentActivity').innerHTML=recent.length?recent.map(o=>`<div class="activityitem"><div class="activityicon">${escapeHTML(o.icon||'📋')}</div><div><b>${escapeHTML(o.type)} · Kolam ${escapeHTML(o.pond)}</b><small>${escapeHTML(o.date)} · ${escapeHTML(o.operator)} · ${escapeHTML(o.status)}</small></div></div>`).join(''):'<div class="empty">Belum ada rekod operasi.</div>';
+  $('sectionSummary').innerHTML='ABCDEFG'.split('').map(s=>`<div class="stat" style="padding:11px"><div class="stathead">BAHAGIAN ${s}</div><strong style="font-size:20px">${data.ponds.filter(p=>p.section===s).length}</strong><small>kolam</small></div>`).join('');
+}
+
+function renderPonds(){
+  const q=($('pondSearch').value||'').toLowerCase(),st=$('pondFilter').value,sec=$('sectionFilter').value;
+  const list=data.ponds.filter(p=>p.id.toLowerCase().includes(q)&&(!st||p.status===st)&&(!sec||p.section===sec));
+  $('pondCount').textContent=list.length+' kolam';
+  $('pondTable').innerHTML=list.length?list.map(p=>`<tr><td><b>${escapeHTML(p.id)}</b>${['A1','B1','C1'].includes(p.id)?' <span class="badge warn">Kuarantin</span>':''}</td><td>Bahagian ${p.section}</td><td>${badge(p.status)}</td><td>${p.temp||'—'}</td><td>${p.ph||'—'}</td><td>${p.do||'—'}</td><td><button class="btn outline" onclick="editPond('${p.id}')">Kemaskini</button></td></tr>`).join(''):'<tr><td colspan="7" class="empty">Tiada kolam ditemui.</td></tr>';
+}
+
+function renderOperations(){
+  const q=($('opSearch').value||'').toLowerCase(),st=$('opStatusFilter').value;
+  const list=[...data.operations].filter(o=>(o.pond+' '+o.type+' '+o.detail).toLowerCase().includes(q)&&(!st||o.status===st)).sort((a,b)=>(b.created||'').localeCompare(a.created||''));
+  $('opCount').textContent=list.length+' rekod';
+  $('opTable').innerHTML=list.length?list.map(o=>`<tr><td>${escapeHTML(o.date)}<br><small class="muted">${escapeHTML(o.time||'')}</small></td><td><b>${escapeHTML(o.pond)}</b></td><td>${escapeHTML(o.icon||'📋')} ${escapeHTML(o.type)}</td><td>${escapeHTML(o.detail)}</td><td>${escapeHTML(o.operator)}</td><td>${badge(o.status)}</td><td>${user.role!=='Operator'&&o.status==='Menunggu'?`<button class="btn outline" onclick="go('approvals')">Semak</button>`:'—'}</td></tr>`).join(''):'<tr><td colspan="7" class="empty">Belum ada rekod operasi.</td></tr>';
+}
+
+function renderInventory(){
+  const q=($('stockSearch').value||'').toLowerCase(),cat=$('stockFilter').value;
+  const list=data.inventory.filter(i=>i.name.toLowerCase().includes(q)&&(!cat||i.category===cat));
+  $('stockCount').textContent=list.length+' item';
+  $('stockTable').innerHTML=list.length?list.map(i=>`<tr><td><b>${escapeHTML(i.name)}</b></td><td>${escapeHTML(i.category)}</td><td>${Number(i.qty)}</td><td>${escapeHTML(i.unit)}</td><td>${Number(i.min)}</td><td>${Number(i.qty)<=Number(i.min)?'<span class="badge red">Stok rendah</span>':'<span class="badge">Mencukupi</span>'}</td><td><button class="btn outline" onclick="editStock('${i.id}')">Kemaskini</button></td></tr>`).join(''):'<tr><td colspan="7" class="empty">Tiada item inventori.</td></tr>';
+}
+
+function renderApprovals(){
+  const list=[...data.operations].filter(o=>o.status==='Menunggu').sort((a,b)=>(b.created||'').localeCompare(a.created||''));
+  $('approvalCount').textContent=list.length+' menunggu';
+  $('approvalList').innerHTML=list.length?list.map(o=>`<div class="approvalcard"><div><b>${escapeHTML(o.icon||'📋')} ${escapeHTML(o.type)} · Kolam ${escapeHTML(o.pond)}</b><small>${escapeHTML(o.date)} · ${escapeHTML(o.operator)} · ${escapeHTML(o.detail)}</small></div><div class="approvalactions"><button class="btn primary" onclick="approve('${o.id}')">✓ Lulus</button><button class="btn danger" onclick="reject('${o.id}')">Tolak</button></div></div>`).join(''):'<div class="empty">✨ Tiada rekod menunggu kelulusan.</div>';
+}
+
+function renderReports(){
+  const total=data.operations.length,approved=data.operations.filter(o=>o.status==='Diluluskan').length,pending=data.operations.filter(o=>o.status==='Menunggu').length,rejected=data.operations.filter(o=>o.status==='Ditolak').length;
+  $('reportSummary').innerHTML=`<div class="stats" style="grid-template-columns:repeat(4,1fr)"><div class="stat"><small>Jumlah rekod</small><strong>${total}</strong></div><div class="stat"><small>Diluluskan</small><strong>${approved}</strong></div><div class="stat"><small>Menunggu</small><strong>${pending}</strong></div><div class="stat"><small>Ditolak</small><strong>${rejected}</strong></div></div><p class="sectionnote">Data dikemas kini: ${new Date(data.updated||Date.now()).toLocaleString('ms-MY')}</p>`;
+}
+
+function openModal(title,body,handler,submit='Simpan Rekod'){
+  $('modalTitle').textContent=title;
+  $('modalBody').innerHTML=body;
+  $('modalSubmit').textContent=submit;
+  $('modalBack').classList.add('show');
+  modalHandler=handler;
+}
+
+function closeModal(){
+  $('modalBack').classList.remove('show');
+  $('modalForm').reset();
+  modalHandler=null;
+}
+
+$('modalClose').onclick=$('modalCancel').onclick=closeModal;
+$('modalBack').addEventListener('click',e=>{if(e.target===$('modalBack'))closeModal()});
+$('modalForm').addEventListener('submit',e=>{e.preventDefault();if(modalHandler)modalHandler(new FormData(e.target));closeModal()});
+
+const group=(label,name,value,type='text',opts='')=>`<div class="formgroup"><label>${label}</label>${type==='select'?`<select class="field" name="${name}" ${opts}>${value}</select>`:`<input class="field" name="${name}" type="${type}" value="${escapeHTML(value??'')}" ${opts}>`}</div>`;
+
+function editPond(id){
+  const p=data.ponds.find(x=>x.id===id);if(!p)return;
+  openModal('Kemaskini Kolam',`<div class="formgrid">${group('NOMBOR KOLAM','id',p.id)}${group('STATUS','status',['<option>Aktif</option>','<option>Penyelenggaraan</option>','<option>Kuarantin</option>'].map(x=>x.replace('>'+p.status+'<',' selected>'+p.status+'<')).join(''),'select')}${group('SUHU (°C)','temp',p.temp,'number','step="0.1"')}${group('pH','ph',p.ph,'number','step="0.1" min="0" max="14"')}${group('OKSIGEN TERLARUT (mg/L)','do',p.do,'number','step="0.1" min="0"')}</div>`,f=>{
+    p.status=['A1','B1','C1'].includes(p.id)?'Kuarantin':f.get('status');
+    p.temp=f.get('temp');p.ph=f.get('ph');p.do=f.get('do');
+    save();toast('Maklumat kolam dikemas kini.');
+  });
+}
+
+$('addPondBtn').onclick=()=>openModal('Tambah Kolam',`<div class="formgrid">${group('ID KOLAM','id','','text','required placeholder="Contoh: H1"')}${group('STATUS','status','<option>Aktif</option><option>Penyelenggaraan</option>','select')}</div>`,f=>{
+  let id=f.get('id').toUpperCase().trim();
+  if(!/^[A-Z][0-9]+$/.test(id)||data.ponds.some(p=>p.id===id)){toast('ID kolam tidak sah atau telah digunakan.');return}
+  data.ponds.push({id,section:id[0],status:f.get('status'),temp:'',ph:'',do:''});
+  save();toast('Kolam berjaya ditambah.');
+});
+
+$('addOpBtn').onclick=()=>{
+  if(!data.ponds.length)return;
+  const pondOpts=data.ponds.map(p=>`<option>${escapeHTML(p.id)}</option>`).join('');
+  openModal('Rekod Operasi Harian',`<div class="formgrid">${group('TARIKH','date',today(),'date','required')}${group('MASA','time',new Date().toTimeString().slice(0,5),'time','required')}${group('KOLAM','pond',pondOpts,'select')}${group('JENIS AKTIVITI','type','<option value="Pemberian makanan">🍽️ Pemberian makanan</option><option value="Ujian kualiti air">💧 Ujian kualiti air</option><option value="Mortaliti">🐟 Mortaliti</option><option value="Penyelenggaraan">🛠️ Penyelenggaraan</option><option value="Rawatan">🧪 Rawatan</option><option value="Lain-lain">📝 Lain-lain</option>','select')}<div class="formgroup full"><label>BUTIRAN / CATATAN</label><textarea class="field" name="detail" required placeholder="Nyatakan bacaan, kuantiti makanan, tindakan..."></textarea></div></div>`,f=>{
+    const type=f.get('type');
+    const icons={'Pemberian makanan':'🍽️','Ujian kualiti air':'💧','Mortaliti':'🐟','Penyelenggaraan':'🛠️','Rawatan':'🧪','Lain-lain':'📝'};
+    data.operations.push({id:uid(),date:f.get('date'),time:f.get('time'),pond:f.get('pond'),type,icon:icons[type]||'📋',detail:f.get('detail'),operator:user.name,status:user.role==='Admin'||user.role==='Penyelia'?'Diluluskan':'Menunggu',created:new Date().toISOString()});
+    save();toast('Rekod operasi berjaya dihantar.');
+  });
+};
+
+function editStock(id){
+  const i=data.inventory.find(x=>x.id===id);if(!i)return;
+  openModal('Kemaskini Inventori',`<div class="formgrid">${group('NAMA ITEM','name',i.name)}${group('KATEGORI','category',['<option>Makanan</option>','<option>Rawatan</option>','<option>Peralatan</option>','<option>Lain-lain</option>'].map(x=>x.replace('>'+i.category+'<',' selected>'+i.category+'<')).join(''),'select')}${group('KUANTITI','qty',i.qty,'number','step="0.1" required')}${group('UNIT','unit',i.unit)}${group('STOK MINIMUM','min',i.min,'number','step="0.1" required')}</div>`,f=>{
+    i.name=f.get('name');i.category=f.get('category');i.qty=Number(f.get('qty'));i.unit=f.get('unit');i.min=Number(f.get('min'));
+    save();toast('Inventori dikemas kini.');
+  });
+}
+
+$('addStockBtn').onclick=()=>openModal('Tambah Item Inventori',`<div class="formgrid">${group('NAMA ITEM','name','','text','required')}${group('KATEGORI','category','<option>Makanan</option><option>Rawatan</option><option>Peralatan</option><option>Lain-lain</option>','select')}${group('KUANTITI','qty','0','number','step="0.1" required')}${group('UNIT','unit','kg','text','required')}${group('STOK MINIMUM','min','5','number','step="0.1" required')}</div>`,f=>{
+  data.inventory.push({id:uid(),name:f.get('name'),category:f.get('category'),qty:Number(f.get('qty')),unit:f.get('unit'),min:Number(f.get('min'))});
+  save();toast('Item inventori berjaya ditambah.');
+});
+
+function approve(id){const o=data.operations.find(x=>x.id===id);if(o){o.status='Diluluskan';save();toast('Rekod diluluskan.')}}
+function reject(id){const o=data.operations.find(x=>x.id===id);if(o){o.status='Ditolak';save();toast('Rekod ditolak.')}}
+
+// Direct Mobile PDF Generator using html2pdf.js
+$('downloadPdfBtn').onclick=()=>{
+  const nowStr = new Date().toLocaleDateString('ms-MY',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  $('pdfReportDate').textContent = 'Tarikh: ' + nowStr;
+  $('pdfFooterTime').textContent = nowStr;
+  $('pdfStatPonds').textContent = data.ponds.length;
+  $('pdfStatActive').textContent = data.ponds.filter(p=>p.status==='Aktif').length;
+  $('pdfStatOps').textContent = data.operations.length;
+  $('pdfStatStock').textContent = data.inventory.length;
+
+  const opsList = [...data.operations].sort((a,b)=>(b.created||'').localeCompare(a.created||'')).slice(0,25);
+  $('pdfOpTableBody').innerHTML = opsList.length ? opsList.map(o=>`
+    <tr>
+      <td style="padding:6px;border:1px solid #ddd;">${escapeHTML(o.date)} ${escapeHTML(o.time||'')}</td>
+      <td style="padding:6px;border:1px solid #ddd;"><b>${escapeHTML(o.pond)}</b></td>
+      <td style="padding:6px;border:1px solid #ddd;">${escapeHTML(o.type)}</td>
+      <td style="padding:6px;border:1px solid #ddd;">${escapeHTML(o.detail)}</td>
+      <td style="padding:6px;border:1px solid #ddd;">${escapeHTML(o.operator)}</td>
+      <td style="padding:6px;border:1px solid #ddd;">${escapeHTML(o.status)}</td>
+    </tr>
+  `).join('') : `<tr><td colspan="6" style="padding:10px;text-align:center;border:1px solid #ddd;">Tiada rekod operasi dijumpai.</td></tr>`;
+
+  const element = $('pdfReportContainer');
+  element.style.display = 'block';
+
+  const opt = {
+    margin:       10,
+    filename:     `YP_Agrotech_Laporan_${today()}.pdf`,
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2, useCORS: true, logging: false },
+    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+
+  toast('Sedang menjana PDF untuk telefon...');
+  html2pdf().from(element).set(opt).save().then(()=>{
+    element.style.display = 'none';
+    toast('PDF berjaya dimuat turun ke telefon!');
+  }).catch(err=>{
+    console.error(err);
+    element.style.display = 'none';
+    toast('Gagal menjana PDF. Sila guna butang Cetak.');
+  });
+};
+
+$('printPdfBtn').onclick=()=>window.print();
+
+$('csvBtn').onclick=()=>{
+  if(!data.operations.length){toast('Tiada data untuk dieksport.');return}
+  let csv='ID,Tarikh,Masa,Kolam,Aktiviti,Butiran,Operator,Status\n'+data.operations.map(o=>`"${o.id}","${o.date}","${o.time||''}","${o.pond}","${o.type}","${o.detail.replace(/"/g,'""')}","${o.operator}","${o.status}"`).join('\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download=`yp_agrotech_operasi_${today()}.csv`;a.click();
+  toast('Fail CSV berjaya dimuat turun.');
+};
+
+$('jsonExportBtn').onclick=()=>{
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download=`yp_agrotech_backup_${today()}.json`;a.click();
+  toast('Fail sandaran JSON dimuat turun.');
+};
+
+$('jsonImport').onchange=e=>{
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=event=>{
+    try{
+      const parsed=JSON.parse(event.target.result);
+      if(parsed&&Array.isArray(parsed.ponds)&&Array.isArray(parsed.operations)){
+        data=parsed;save();toast('Data berjaya diimport!');
+      }else{toast('Format fail tidak sah.')}
+    }catch(err){toast('Ralat membaca fail JSON.')}
+  };
+  reader.readAsText(file);
+};
+</script>
+</body>
+</html>
